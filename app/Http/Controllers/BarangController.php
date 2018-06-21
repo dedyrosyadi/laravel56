@@ -23,20 +23,16 @@ class BarangController extends Controller
 		$barang->stok = $request->stok;
 		$barang->save();
 
-		return redirect(route('index'))->with('alert-success','Berhasil Menambahkan Data!');;
+		return redirect(Route('index'))->with('alert-success','Berhasil Menambahkan Data!');
 		// return redirect()->route('index');
 		// return redirect()->action('BarangController@index');
 		// return Redirect::action('BarangController@index');
-	}   
+	}
 
 	public function delete($id){
         $barang = Barang::findOrFail($id);
         // dd($barang);
         $barang->delete();
-        return redirect(route('index'))->with('success','Data berhasil dihapus');
+        return redirect(Route('index'))->with('success','Data berhasil dihapus');
     }
-
 }
-
-
-
