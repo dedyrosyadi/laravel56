@@ -1,9 +1,9 @@
 @extends('master')
 @section('content')
-	
+
 	<a class="btn btn-primary" href="{{ Route('create') }}">Tambah Data</a>
 	<br><br>
-	
+
 	<table class="table table-bordered table-responsive">
     <thead>
       <tr>
@@ -24,10 +24,10 @@
           <td>
             <a href="{{ Route('delete', ['id' => $databarang->id]) }}" class="btn btn-danger btn-xs">Hapus</a>
             {{-- <a href="{{ Route('delete')}}" class="btn btn-danger btn-xs">Hapus</a> --}}
-            <a href="#" class="btn btn-warning btn-xs">Edit</a>
+						<a href="{{ Route('edit', ['id' => $databarang->id]) }}" class="btn btn-warning btn-xs">Edit</a>
             {{-- <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
              --}}
-            
+
           </td>
         </tr>
 

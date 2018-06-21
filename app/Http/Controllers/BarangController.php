@@ -30,9 +30,25 @@ class BarangController extends Controller
 	}
 
 	public function delete($id){
-        $barang = Barang::findOrFail($id);
-        // dd($barang);
-        $barang->delete();
-        return redirect(Route('index'))->with('success','Data berhasil dihapus');
-    }
+		$barang = Barang::findOrFail($id);
+		// dd($barang);
+		$barang->delete();
+		return redirect(Route('index'))->with('success','Data berhasil dihapus');
+	}
+
+	public function edit($id){
+		$barang = Barang::findOrFail($id);
+		return view('barang.edit', ['barang' => $barang]);
+	}
+
+	public function submitedit(Request $request, $id){
+		$barang = Barang::findOrFail($id);
+
+		$barang->kode_barang = $request->kode_barang;
+		$barang->nama_barang = $request->nama_barang;
+		$barang->stok = $request->stok;
+		$barang->save();
+
+		return redirect(Route('index'))->with('alert-success','Berhasil Merubah Data!');
+	}
 }
