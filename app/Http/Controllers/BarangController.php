@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Barang; // use model
 
+use PDF;
+
 class BarangController extends Controller
 {
-	public function index(){
-		$barangs = Barang::all();
+	public function index(Request $request){
+		if ($request->get('search')) {
+			$barangs = Barang::where('nama_barang', 'LIKE', '%'.$request->get('search').'%')->get();
+		}else{
+			$barangs = Barang::all();
+		}
 		return view('barang.show', ['barang' => $barangs]);
 	}
 
@@ -24,14 +30,10 @@ class BarangController extends Controller
 		$barang->save();
 
 		return redirect(Route('index'))->with('alert-success','Berhasil Menambahkan Data!');
-		// return redirect()->route('index');
-		// return redirect()->action('BarangController@index');
-		// return Redirect::action('BarangController@index');
 	}
 
 	public function delete($id){
 		$barang = Barang::findOrFail($id);
-		// dd($barang);
 		$barang->delete();
 		return redirect(Route('index'))->with('success','Data berhasil dihapus');
 	}
@@ -50,5 +52,12 @@ class BarangController extends Controller
 		$barang->save();
 
 		return redirect(Route('index'))->with('alert-success','Berhasil Merubah Data!');
+	}
+
+	public function cetak(){
+		$barang = Barang::all();
+
+		$pdf = PDF::loadview('barang.cetak', ['barang' => $barang]);
+    return $pdf->setPaper('a4', 'potrait')->stream();
 	}
 }

@@ -1,7 +1,16 @@
 @extends('master')
 @section('content')
 
+	<form class="" action="{{ Route('cari') }}" method="POST">
+		@csrf
+		<div class="pull-right">
+			<input type="text" name="search" placeholder="Pencarian">
+			<button type="submit">Cari</button>
+		</div>
+	</form>
+
 	<a class="btn btn-primary" href="{{ Route('create') }}">Tambah Data</a>
+	<a class="btn btn-info" href="{{ Route('cetak') }}">Cetak</a>
 	<br><br>
 
 	<table class="table table-bordered table-responsive">
